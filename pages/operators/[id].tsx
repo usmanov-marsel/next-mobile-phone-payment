@@ -1,6 +1,6 @@
 import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext, NextPage } from "next";
 import axios from "axios";
-import { operators } from "../../helpers";
+import { operators } from "../../data";
 import { ParsedUrlQuery } from "querystring";
 import { FormPayment } from "../../components/FormPayment/FormPayment";
 import { IMobileOperator } from "../../interfaces/operator.interface";

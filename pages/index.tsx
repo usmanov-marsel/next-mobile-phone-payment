@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import axios from "axios";
 import { IMobileOperator } from "../interfaces/operator.interface";
 import { MobileOperator } from "../components/MobileOperator/MobileOperator";
-import { operators } from "../helpers";
+import { operators } from "../data";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
 

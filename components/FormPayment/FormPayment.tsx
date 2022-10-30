@@ -11,6 +11,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import cn from "classnames";
 import axios from "axios";
 import { Modal } from "../Modal/Modal";
+import { useRouter } from "next/router";
 
 interface FormPaymentProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -91,12 +92,12 @@ const onPhoneKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
 };
 
 export const FormPayment = ({ operatorName }: FormPaymentProps) => {
+  const router = useRouter();
   const [successSubmit, setSuccessSubmit] = useState(true);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-    reset,
   } = useForm<IRequisites>({
     mode: "onBlur",
   });
@@ -105,6 +106,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
     data.tel = data.tel.replace(/\D/g, "");
     try {
       await axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/payment");
+      router.push("/");
     } catch (e) {
       setSuccessSubmit(false);
     }
@@ -112,6 +114,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.title}>{operatorName}</div>
         <div className={styles.wrapper}>
           <div className={styles.inputWrapper}>
             <label className={styles.label} htmlFor="tel">
@@ -172,7 +175,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
       </form>
       <Modal isOpen={!successSubmit}>
         <div className={styles.errorWrapper}>
-          <div className={styles.error}>Ошибка обработки, пожалуйста заполните форму заново</div>
+          <div className={styles.error}>Что-то пошло не так, пожалуйста заполните форму заново</div>
           <button className={styles.button} onClick={() => setSuccessSubmit(!successSubmit)}>
             ОК
           </button>

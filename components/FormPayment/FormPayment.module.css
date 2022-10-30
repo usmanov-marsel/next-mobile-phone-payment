@@ -1,8 +1,8 @@
 .form {
   max-width: 620px;
   text-align: center;
-  background: #f9f9f9;
-  border: 1px solid #d9d9d9;
+  background: var(--background-operator);
+  border: 1px solid var(--border-operator);
   border-radius: 16px;
   padding: 20px;
   margin: 100px auto;
@@ -26,18 +26,18 @@
   min-height: 45px;
   min-width: 275px;
   border-radius: 8px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border-operator);
   font-size: 16px;
   padding: 11px;
 }
 
 .input:focus {
   outline: none;
-  border: 1px solid black;
+  border: 1px solid var(--input-focus-border);
 }
 
 .input::placeholder {
-  color: #BEC4D9
+  color: var(--input-placeholder);
 }
 
 .inputError {
@@ -62,14 +62,19 @@
 }
 
 .input[type="submit"] {
+  opacity: 0.4;
   margin-top: 20px;
-  color: white;
-  background: #A4A6AD;
+  color: var(--font-submit);
+  background: var(--background-submit);
   font-weight: bold;
 }
 
+.inputActive[type="submit"] {
+  opacity: 1;
+}
+
 .inputActive[type="submit"]:hover {
-  background: #8C8E94;
+  background: var(--background-submit-hover);
   cursor: pointer;
 }
 
@@ -92,6 +97,7 @@
 }
 
 .errorWrapper {
+  position: absolute;
   border: 1px solid rgb(37, 37, 37);
   border-radius: 8px;
   padding: 20px;
@@ -101,7 +107,7 @@
   justify-content: center;
   align-items: center;
   gap: 15px;
-  margin-top: 200px;
+  margin-top: 184px;
 }
 
 .error {
@@ -112,15 +118,21 @@
 
 .button {
   display: inline-block;
-  color: white;
-  background: #A4A6AD;
+  color: var(--font-submit);
+  background: var(--background-submit);
   font-weight: bold;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border-operator);
   font-size: 16px;
   line-height: 24px;
   padding: 0 10px
 }
 
 .button:hover {
-  background: #8C8D93;
+  background: var(--background-submit-hover);
+}
+
+.title {
+  color: var(--form-title);
+  font-size: 20px;
+  margin-bottom: 13px;
 }

@@ -6,20 +6,20 @@
   grid-template-areas: "header header header"
     ". main ."
     "footer footer footer";
-  background: white;
+  background: linear-gradient(90deg, rgba(250,255,0,0.3) 0%, rgba(255,115,0,0.3) 100%);
 }
 
 .header {
   grid-area: header;
   text-align: center;
   font-size: 24px;
-  color: rgb(108, 108, 108);
+  color: var(--header-font-color);
 }
 
 .header div {
   margin: 0 auto;
   max-width: 410px;
-  border-bottom: 2px solid #aaaaaa;
+  border-bottom: 2px solid var(--header-border-color);
 }
 
 .main {
