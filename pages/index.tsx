@@ -1,10 +1,7 @@
-import type { GetStaticProps, NextPage } from "next";
-import axios from "axios";
-import { IMobileOperator } from "../interfaces/operator.interface";
+import type { NextPage } from "next";
 import { MobileOperator } from "../components/MobileOperator/MobileOperator";
 import { operators } from "../data";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
 
 interface HomeProps extends Record<string, unknown> {}
 

@@ -7,6 +7,6 @@ export enum MobileOperatorEnum {
 export interface IMobileOperator {
   route: string;
   title: string;
-  icon: JSX.Element;
+  icon: string;
   id: MobileOperatorEnum;
 }

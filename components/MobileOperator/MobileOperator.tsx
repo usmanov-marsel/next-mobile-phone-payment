@@ -13,7 +13,7 @@ export const MobileOperator = ({ operator, index }: MobileOperatorProps) => {
   return (
     <Link href={`operators/${operator.route}`}>
       <StyledWrapper index={index}>
-        <StyledIcon>{operator.icon}</StyledIcon>
+        <StyledIcon dangerouslySetInnerHTML={{ __html: operator.icon }} />
         <StyledTitle>{operator.title}</StyledTitle>
       </StyledWrapper>
     </Link>
