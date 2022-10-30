@@ -14,14 +14,22 @@ const OperatorPage: NextPage<OperatorPageProps> = ({ operatorName }: OperatorPag
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data: operators } = await axios.get<IMobileOperator[]>(
-    process.env.NEXT_PUBLIC_DOMAIN + "/api/operators"
-  );
-  const paths = operators.map((o) => `/operators/${o.route}`);
-  return {
-    paths,
-    fallback: true,
-  };
+  try {
+    const { data: operators } = await axios.get<IMobileOperator[]>(
+      process.env.NEXT_PUBLIC_DOMAIN + "/api/operators"
+    );
+    const paths = operators.map((o) => `/operators/${o.route}`);
+    return {
+      paths,
+      fallback: true,
+    };
+  } catch {
+    const paths = ["/operators/mts", "/operators/megafon", "/operators/beeline"];
+    return {
+      paths,
+      fallback: true,
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps<OperatorPageProps> = async ({
