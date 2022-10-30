@@ -12,6 +12,7 @@ import cn from "classnames";
 import axios from "axios";
 import { Modal } from "../Modal/Modal";
 import { useRouter } from "next/router";
+import { BackButtom } from "../CancelButtom/CancelButtom";
 
 interface FormPaymentProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -114,6 +115,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <BackButtom />
         <div className={styles.title}>{operatorName}</div>
         <div className={styles.wrapper}>
           <div className={styles.inputWrapper}>
