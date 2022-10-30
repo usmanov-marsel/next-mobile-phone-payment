@@ -160,7 +160,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
               })}
               placeholder="1–1000 ₽"
               className={cn(styles.input, {
-                [styles.inputError]: errors.tel,
+                [styles.inputError]: errors.sum,
               })}
             />
             {errors.sum && <p className={styles.p}>{errors.sum.message}</p>}
