@@ -94,7 +94,8 @@ const onPhoneKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
 
 export const FormPayment = ({ operatorName }: FormPaymentProps) => {
   const router = useRouter();
-  const [successSubmit, setSuccessSubmit] = useState(true);
+  const [errorSubmit, setErrorSubmit] = useState(true);
+  const [successSubmit, setSuccessSubmit] = useState(false);
   const {
     register,
     handleSubmit,
@@ -107,9 +108,10 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
     data.tel = data.tel.replace(/\D/g, "");
     try {
       await axios.post(process.env.NEXT_PUBLIC_DOMAIN + "/api/payment");
-      router.push("/");
+      setSuccessSubmit(!successSubmit);
+      setTimeout(() => router.push("/"), 1400);
     } catch (e) {
-      setSuccessSubmit(false);
+      setErrorSubmit(false);
     }
   };
   return (
@@ -175,12 +177,17 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
           disabled={!isValid}
         />
       </form>
-      <Modal isOpen={!successSubmit}>
+      <Modal isOpen={!errorSubmit}>
         <div className={styles.errorWrapper}>
           <div className={styles.error}>Что-то пошло не так, пожалуйста заполните форму заново</div>
-          <button className={styles.button} onClick={() => setSuccessSubmit(!successSubmit)}>
+          <button className={styles.button} onClick={() => setErrorSubmit(!errorSubmit)}>
             ОК
           </button>
+        </div>
+      </Modal>
+      <Modal isOpen={successSubmit}>
+        <div className={styles.succesWrapper}>
+          <div className={styles.success}>Оплата прошла успешно!</div>
         </div>
       </Modal>
     </>

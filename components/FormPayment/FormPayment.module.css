@@ -137,3 +137,34 @@
   font-size: 20px;
   margin-bottom: 13px;
 }
+
+.succesWrapper {
+  position: absolute;
+  border: 1px solid rgb(37, 37, 37);
+  border-radius: 8px;
+  padding: 20px;
+  background: rgb(49, 255, 84);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 184px;
+  animation: slide 0.5s;
+}
+
+.success {
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+@keyframes slide {
+  from {
+    margin-top: 0px;
+  }
+
+  to {
+    margin-top: 184px;
+  }
+}
