@@ -1,4 +1,4 @@
-import React, { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
+import React, { DetailedHTMLProps, HTMLAttributes } from "react";
 import { IMobileOperator } from "../../interfaces/operator.interface";
 import Link from "next/link";
 import { StyledIcon, StyledTitle, StyledWrapper } from "./StyledMobileOperator";

@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import CancelIcon from "../../data/icons/x-mark.svg";
-import styles from "./CancelButtom.module.css";
+import styles from "./CancelButton.module.css";
 
-export const BackButtom = () => {
+export const CancelButton = () => {
   const router = useRouter();
   return (
     <button

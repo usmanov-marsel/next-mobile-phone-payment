@@ -1,18 +1,12 @@
-import React, {
-  ClipboardEventHandler,
-  DetailedHTMLProps,
-  FormEventHandler,
-  HTMLAttributes,
-  KeyboardEventHandler,
-  useState,
-} from "react";
+import React, { DetailedHTMLProps, HTMLAttributes, useState } from "react";
 import styles from "./FormPayment.module.css";
 import { useForm, SubmitHandler } from "react-hook-form";
 import cn from "classnames";
 import axios from "axios";
 import { Modal } from "../Modal/Modal";
 import { useRouter } from "next/router";
-import { BackButtom } from "../CancelButtom/CancelButtom";
+import { CancelButton } from "../CancelButton/CancelButton";
+import { onPhoneInput, onPhoneKeyDown, onPhonePaste } from "../../helpers/phone";
 
 interface FormPaymentProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
@@ -23,74 +17,6 @@ interface IRequisites {
   tel: string;
   sum: number;
 }
-
-const getInputNumbersValue = (input: HTMLInputElement) => {
-  return input.value.replace(/\D/g, "");
-};
-
-const onPhonePaste: ClipboardEventHandler<HTMLInputElement> = (e) => {
-  const input = e.target as HTMLInputElement;
-  if (!input) {
-    return;
-  }
-  const inputNumbersValue = getInputNumbersValue(input);
-  const pasted = e.clipboardData;
-  if (pasted) {
-    const pastedText = pasted.getData("Text");
-    if (/\D/g.test(pastedText)) {
-      input.value = inputNumbersValue;
-      return;
-    }
-  }
-};
-
-const onPhoneInput: FormEventHandler<HTMLInputElement> = (e) => {
-  const input = e.target as HTMLInputElement;
-  const selectionStart = input.selectionStart;
-  let inputNumbersValue = getInputNumbersValue(input);
-  let formattedInputValue = "";
-
-  if (input.value == "+") {
-    return;
-  }
-
-  if (!inputNumbersValue) {
-    return (input.value = "");
-  }
-
-  if (input.value.length != selectionStart) {
-    return;
-  }
-
-  if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
-    if (inputNumbersValue[0] == "9") inputNumbersValue = "7" + inputNumbersValue;
-    var firstSymbols = inputNumbersValue[0] == "8" ? "8" : "+7";
-    formattedInputValue = input.value = firstSymbols + " ";
-    if (inputNumbersValue.length > 1) {
-      formattedInputValue += "(" + inputNumbersValue.substring(1, 4);
-    }
-    if (inputNumbersValue.length >= 5) {
-      formattedInputValue += ") " + inputNumbersValue.substring(4, 7);
-    }
-    if (inputNumbersValue.length >= 8) {
-      formattedInputValue += "-" + inputNumbersValue.substring(7, 9);
-    }
-    if (inputNumbersValue.length >= 10) {
-      formattedInputValue += "-" + inputNumbersValue.substring(9, 11);
-    }
-  } else {
-    formattedInputValue = "+" + inputNumbersValue.substring(0, 16);
-  }
-  input.value = formattedInputValue;
-};
-
-const onPhoneKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-  const input = e.target as HTMLInputElement;
-  const inputValue = input.value.replace(/\D/g, "");
-  if (e.keyCode == 8 && inputValue.length == 1) {
-    input.value = "";
-  }
-};
 
 export const FormPayment = ({ operatorName }: FormPaymentProps) => {
   const router = useRouter();
@@ -117,7 +43,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <BackButtom />
+        <CancelButton />
         <div className={styles.title}>{operatorName}</div>
         <div className={styles.wrapper}>
           <div className={styles.inputWrapper}>
@@ -127,6 +53,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
             <input
               placeholder="+7 000 000 00 00"
               type="tel"
+              id="tel"
               {...register("tel", {
                 required: "Телефон обязателен к заполнению",
                 pattern: {
@@ -148,6 +75,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
               Сумма
             </label>
             <input
+              id="sum"
               type="number"
               {...register("sum", {
                 required: "Сумма обязательна к заполнению",
@@ -186,7 +114,7 @@ export const FormPayment = ({ operatorName }: FormPaymentProps) => {
         </div>
       </Modal>
       <Modal isOpen={successSubmit}>
-        <div className={styles.succesWrapper}>
+        <div className={styles.successWrapper}>
           <div className={styles.success}>Оплата прошла успешно!</div>
         </div>
       </Modal>
